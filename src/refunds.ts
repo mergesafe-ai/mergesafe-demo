@@ -7,8 +7,12 @@ export const refunds = Router();
 // Refund part or all of an order back to the customer.
 refunds.post("/orders/:id/refund", async (req, res) => {
   const amount = Number(req.body.amount_cents);
+  if (!Number.isInteger(amount) || amount <= 0) {
+    return res.status(400).json({ error: "amount_cents must be a positive integer" });
+  }
   const { rows } = await db.query(
-    "SELECT id, total_cents, refunded_cents FROM orders WHERE id = '" + sanitize(req.params.id) + "'",
+    "SELECT id, total_cents, refunded_cents FROM orders WHERE id = $1",
+    [req.params.id],
   );
   const order = rows[0];
   if (!order) return res.status(404).json({ error: "not found" });
