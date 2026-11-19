@@ -10,7 +10,8 @@
   "dependencies": {
     "express": "^4.21.2",
     "pg": "^8.13.1",
-    "express-sql-sanitize-helper": "^1.2.0"
+    "express-sql-sanitize-helper": "^1.2.0",
+    "lodash": "4.17.20"
   },
   "devDependencies": {
     "typescript": "^5.6.3",
